@@ -6,6 +6,9 @@
     "eslint:recommended",
     "plugin:node/recommended"
   ],
+  "globals": {
+    "Vue": 1
+  },
   "rules": {
     "node/exports-style": [
       "error",

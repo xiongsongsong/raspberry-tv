@@ -1,28 +1,26 @@
 const Koa = require('koa')
 const app = new Koa()
-const fs = require('fs')
 const path = require('path')
+const api = require('koa-router')()
+const request = require('request')
 
-app.use(ctx => {
-  ctx.type = 'html'
-  const type = path.extname(ctx.path).substring(1)
-  switch (type) {
-    case 'html':
-      ctx.type = 'html'
-      break
-    case 'js':
-      ctx.type = 'js'
-      break
-    case 'css':
-      ctx.type = 'css'
-      break;
-  }
-  let file = ctx.path;
-  if (file === '/') file = 'index.html'
-  // 防止../这种访问路径
-  file = file.replace(/\.+/, '.')
-  let _path = path.join(__dirname, 'static', file)
-  ctx.body = fs.createReadStream(_path)
+
+// 静态文件
+app.use(require('koa-static')(path.join(__dirname, 'static')))
+
+// 是否联网
+api.get('/isonline', async (ctx) => {
+  ctx.body = await new Promise((resolve) => {
+    request.get('https://hammurabi.ruoshui.me/', (err, res) => {
+      if (err) {
+        resolve(false)
+      } else {
+        resolve(res.statusCode === 200)
+      }
+    })
+  })
 })
+
+app.use(api.routes())
 
 app.listen(7001)
