@@ -4,8 +4,8 @@ const path = require('path')
 const api = require('koa-router')()
 const request = require('request')
 
-
 // 静态文件
+app.use(require('koa-static')(path.join(__dirname, 'node_modules')))
 app.use(require('koa-static')(path.join(__dirname, 'static')))
 
 // 是否联网

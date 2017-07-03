@@ -7,7 +7,8 @@
     "plugin:node/recommended"
   ],
   "globals": {
-    "Vue": 1
+    "Vue": 1,
+    "axios": 1
   },
   "rules": {
     "node/exports-style": [

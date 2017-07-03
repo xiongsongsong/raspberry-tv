@@ -33,14 +33,26 @@
       justify-content: center;
       align-items: center;
     }
+
+    #info {
+      font-size: 3.5vw;
+      font-weight: 100;
+      text-align: center;
+    }
   </style>
 </head>
 <body>
 <div id="app">
-  <p>正在连接服务器...</p>
+  <div id="info">
+    {{raspberryCode[code]}}
+    <template v-if="reconnect > 0">
+      <div>(第{{reconnect}}次尝试)</div>
+    </template>
+  </div>
 </div>
 <img src="./ruoshui.svg" alt="" class="logo"/>
-<script src="./vue.min.js"></script>
-<script src="./test.js"></script>
+<script src="/vue/dist/vue.min.js"></script>
+<script src="/axios/dist/axios.js"></script>
+<script src="/app.js"></script>
 </body>
 </html>
